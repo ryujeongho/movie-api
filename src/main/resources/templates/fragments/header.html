@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header th:fragment="header">
+    <div id="header-container">
+        <h2>Hello Spring</h2>
+    </div>
+    <!-- https://getbootstrap.com/docs/4.0/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo-spring.png}" alt="스프링로고" width="50px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/board/boardList.do}">게시판</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/menu/menu.do}">메뉴</a></li>
+            </ul>
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-3" type="button" th:onclick="|location.href='@{/auth/login.do}';|">로그인</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:onclick="|location.href='@{/member/createMember.do}';|">회원가입</button>
+        </div>
+    </nav>
+</header>
+</html>

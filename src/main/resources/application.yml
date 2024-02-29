@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: movie
+    password: movie
+  jpa:
+    #    hibernate:
+    #      ddl-auto: create # ddl ???? (?? ???? create, create-drop ??, ?? ??? update, ?? ??? none, validate)
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        hbm2ddl:
+          auto: create # ddl ???? (?? ???? create, create-drop ??, ?? ??? update, ?? ??? none, validate)
+    database: oracle
+    database-platform: org.hibernate.dialect.OracleDialect # sql ???? ??? ? ?? ??
+logging:
+  level:
+    root: info
+    com.sh.app: debug

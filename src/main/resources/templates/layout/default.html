@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!--
+        th:block 렌더링되는 태그없이 그룹핑만 수행
+        th:insert fragment태그 포함, 자식태그 가져옴
+        th:insert fragment태그 제외하고, 자식태그 가져옴
+    -->
+    <th:block th:include="~{fragments/head::head}"></th:block>
+
+    <!--
+        $LAYOUT_TITLE 앱 제목 (공용)
+        $CONTENT_TITLE 페이지 제목 (개별)
+    -->
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">HelloSpringboot</title>
+
+    <style layout:fragment="style"></style>
+    <!--
+        - 재사용 fragment
+            - head th:fragment -> th:insert (fragment태그의 자식태그만 주입)
+            - header th:fragment -> th:include
+            - footer th:fragment -> th:include
+        - 페이지별 fragment
+            - style layout:fragment -> layout:fragment
+            - content layout:fragment -> layout:fragment
+            - script layout:fragment -> layout:fragment
+    -->
+</head>
+<body>
+    <div id="container">
+        <header th:include="~{fragments/header::header}"></header>
+        <section id="content">
+            <div layout:fragment="content"></div>
+        </section>
+        <footer th:include="~{fragments/footer::footer}"></footer>
+    </div>
+<script layout:fragment="script"></script>
+</body>
+</html>

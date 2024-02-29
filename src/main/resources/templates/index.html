@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+<head>
+	<title>인덱스</title>
+</head>
+<style layout:fragment="style">
+	footer {
+		color: red;
+	}
+</style>
+
+<div layout:fragment="content">
+	<img th:src="@{/images/logo-spring.png}" id="center-image" alt="스프링로고" class="d-block mx-auto mt-5"/>
+</div>
+
+<script layout:fragment="script">
+	console.log('index');
+</script>
+</html>
