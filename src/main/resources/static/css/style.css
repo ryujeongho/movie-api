@@ -5,6 +5,10 @@ body {
     font-family: 'Sunflower', sans-serif;
     font-weight: 500;
     font-size: 1.2em;
+    position: relative; /* 바디를 상대 위치로 설정하여 헤더, 섹션, 푸터의 위치를 조정 */
+    padding-top: 100px; /* 헤더 높이만큼 바디 상단에 여백 추가 */
+    padding-bottom: 95px; /* 푸터 높이만큼 바디 하단에 여백 추가 */
+    min-height: 100vh; /* 최소 높이를 화면 전체 높이로 설정 */
 }
 
 div, section, header, aside, footer {
@@ -17,12 +21,16 @@ div#container {
 
 /********** header **********/
 header div#header-container {
-    height: 100px;
+    height: 100px; /* 헤더 높이 설정 */
+    position: absolute; /* 헤더를 절대 위치로 설정 */
+    top: 0; /* 바디 상단에 배치 */
+    width: 100%; /* 너비를 바디와 일치시킴 */
 }
 
 /********** content **********/
 section#content {
-    min-height: 600px;
+    min-height: calc(100vh - 195px); /* 섹션의 최소 높이를 화면 높이에서 헤더와 푸터의 높이를 뺀 값으로 설정 */
+    position: relative; /* 섹션을 상대 위치로 설정 */
 }
 
 
@@ -31,4 +39,7 @@ footer {
     background-color: #f8f9fa;
     background-clip: content-box;
     height: 95px;
+    position: absolute; /* 푸터를 절대 위치로 설정 */
+    bottom: 0; /* 바디 하단에 배치 */
+    width: 100%; /* 너비를 바디와 일치시킴 */
 }
