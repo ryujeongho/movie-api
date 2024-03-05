@@ -18,6 +18,12 @@ spring:
         format_sql: true
         hbm2ddl:
           auto: create # ddl ???? (?? ???? create, create-drop ??, ?? ??? update, ?? ??? none, validate)
+        jdbc:
+          batch_size: 80
+          batch_versioned_data: true
+          generate_statistics: true
+        order_inserts: true
+        order_updates: true
     database: oracle
     database-platform: org.hibernate.dialect.OracleDialect # sql ???? ??? ? ?? ??
 logging:
