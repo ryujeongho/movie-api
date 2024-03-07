@@ -30,3 +30,10 @@ logging:
   level:
     root: info
     com.sh.app: debug
+api:
+  kobis:
+    key: '51255ceba3272d0a60a62207435ec085'
+  kmdb:
+    key: 'P0ZWHCNG459XPX2XEVK5'
+  youtube:
+    key: 'AIzaSyDBTbARQTqTen5HkWAGSe99h5YnClKc08M'

@@ -17,6 +17,24 @@
 	hello spring
 	<img th:src="@{/images/logo-spring.png}" id="center-image2" alt="스프링로고" class="d-block mx-auto mt-5"/>
 	hello spring
+	<table>
+		<thead>
+		<tr>
+			<th>순위</th>
+			<th>제목</th>
+			<th>개봉일</th>
+			<th>누적관객수</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="boxOffice : ${boxOfficeList}">
+			<td th:text="${boxOffice.rank}">1</td>
+			<td th:text="${boxOffice.movieNm}">Movie Name</td>
+			<td th:text="${boxOffice.openDt}">2024-02-04</td>
+			<td th:text="${boxOffice.audiAcc}">10000</td>
+		</tr>
+		</tbody>
+	</table>
 </div>
 
 <script layout:fragment="script">
