@@ -28,13 +28,13 @@ public class BoxOfficeService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${api.kobis.key}")
+    @Value("${api_kobis_key}")
     private String kobisApiKey;
 
-    @Value("${api.kmdb.key}")
+    @Value("${api_kmdb_key}")
     private String kmdbApiKey;
 
-    @Value("${api.youtube.key}")
+    @Value("${api_youtube_key}")
     private String youtubeApiKey;
 
     public void fetchAndStoreBoxOfficeData() {

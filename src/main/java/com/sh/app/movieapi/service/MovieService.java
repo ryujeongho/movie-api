@@ -6,6 +6,7 @@ import com.sh.app.movieapi.entity.MovieResponse;
 import com.sh.app.movieapi.genre.entity.Genre;
 import com.sh.app.movieapi.genre.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.sh.app.movieapi.repository.MovieRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,15 +40,17 @@ public class MovieService {
         }
     }
 
+    @Value("${api_tmdb_key}")
+    private String tmdbApiKey;
+
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String API_KEY = "1ddb82a777a1ed86e400004d9119cdf3";
     private final String BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
 
     public List<Movie> fetchMovies() {
         List<Movie> allMovies = new ArrayList<>();
         for (int page = 1; page <= 4; page++) {
-            String url = String.format("%s?api_key=%s&include_adult=false&include_video=true&language=ko-KR&page=%d&region=KR&sort_by=popularity.desc", BASE_URL, API_KEY, page);
+            String url = String.format("%s?api_key=%s&include_adult=false&include_video=true&language=ko-KR&page=%d&region=KR&sort_by=popularity.desc", BASE_URL, tmdbApiKey, page);
             String response = restTemplate.getForObject(url, String.class);
             try {
                 MovieResponse movieResponse = objectMapper.readValue(response, MovieResponse.class);

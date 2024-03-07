@@ -32,8 +32,10 @@ logging:
     com.sh.app: debug
 api:
   kobis:
-    key: '51255ceba3272d0a60a62207435ec085'
+    key: ${api_kobis_key}
   kmdb:
-    key: 'P0ZWHCNG459XPX2XEVK5'
+    key: ${api_kmdb_key}
   youtube:
-    key: 'AIzaSyDBTbARQTqTen5HkWAGSe99h5YnClKc08M'
+    key: ${api_youtube_key}
+  tmdb:
+    key: ${api_tmdb_key}
