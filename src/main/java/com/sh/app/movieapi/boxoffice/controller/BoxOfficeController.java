@@ -5,6 +5,7 @@ import com.sh.app.movieapi.boxoffice.service.BoxOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class BoxOfficeController {
     @Autowired
     private BoxOfficeService boxOfficeService;
 
+    @CrossOrigin(origins = {"https://www.youtube.com", "https://www.kmdb.or.kr"})
     @GetMapping("/")
     public String showIndex(Model model) {
         List<BoxOffice> boxOfficeList = boxOfficeService.findAll();

@@ -35,7 +35,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-json'
 
 	implementation 'org.modelmapper:modelmapper:3.2.0'
-	compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 	annotationProcessor 'org.projectlombok:lombok'

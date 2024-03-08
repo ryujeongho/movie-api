@@ -32,6 +32,14 @@
 			<td th:text="${boxOffice.movieNm}">Movie Name</td>
 			<td th:text="${boxOffice.openDt}">2024-02-04</td>
 			<td th:text="${boxOffice.audiAcc}">10000</td>
+			<td>
+				<img th:src="${boxOffice.posterUrl}" alt="movie_image"/>
+			</td>
+			<td>
+				<video autoplay muted controls loop>
+					<source th:src="${boxOffice.vodUrl}" type="video/mp4">
+				</video>
+			</td>
 		</tr>
 		</tbody>
 	</table>
