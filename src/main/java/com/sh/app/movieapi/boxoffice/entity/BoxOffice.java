@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,7 +28,8 @@ public class BoxOffice {
 
     private String movieNm;
 
-    private String openDt;
+    @Column(columnDefinition = "DATE")
+    private LocalDate openDt;
 
     private Long audiAcc;
 
