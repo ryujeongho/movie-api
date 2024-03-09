@@ -57,10 +57,9 @@ public class BoxOfficeService {
             BoxOffice boxOffice = new BoxOffice();
             String movieTitle = boxOfficeItem.getString("movieNm");
 
-            String releaseDate = boxOfficeItem.getString("openDt");
-            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate localDate = LocalDate.parse(releaseDate, formatter1);
-            String formattedReleaseDate = localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String releaseDateStr = boxOfficeItem.getString("openDt");
+            LocalDate releaseDate = LocalDate.parse(releaseDateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String formattedReleaseDate = releaseDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
             boxOffice.setMovieNm(movieTitle);
             boxOffice.setRank(boxOfficeItem.getLong("rank"));
@@ -134,16 +133,20 @@ public class BoxOfficeService {
             String[] postersUrls = postersStr.split("\\|");
             String firstPosterUrl = postersUrls.length > 0 ? postersUrls[0] : "";
 
-            // VOD URL 추출
+            // VOD URL 추출 및 수정
             JSONObject vodsObject = firstMovie.optJSONObject("vods");
             JSONArray vodArray = vodsObject != null ? vodsObject.optJSONArray("vod") : null;
-            String firstVodUrl = "";
+            String modifiedVodUrl = "";
             if (vodArray != null && vodArray.length() > 0) {
                 JSONObject firstVod = vodArray.optJSONObject(0);
-                firstVodUrl = firstVod != null ? firstVod.optString("vodUrl", "") : "";
-                if (firstVodUrl == null || firstVodUrl.isEmpty()) {
+                String vodUrl = firstVod != null ? firstVod.optString("vodUrl", "") : "";
+                if (vodUrl == null || vodUrl.isEmpty()) {
                     // YouTube에서 vodUrl을 검색하여 가져옵니다.
-                    firstVodUrl = fetchVodUrlFromYoutube("영화 " + movieTitle + " 예고편");
+                    vodUrl = fetchVodUrlFromYoutube("영화 " + movieTitle + " 예고편");
+                }
+                if (!vodUrl.isEmpty()) {
+                    // "trailerPlayPop?pFileNm=" 부분을 "play/"로 변경
+                    modifiedVodUrl = vodUrl.replace("trailerPlayPop?pFileNm=", "play/");
                 }
             }
 
@@ -162,7 +165,7 @@ public class BoxOfficeService {
             // 관람 등급
             String rating = firstMovie.optString("rating", "정보 없음");
 
-            return new MovieInfoDto(director, actorNames.toString(), rating, firstPosterUrl, firstVodUrl, runtime, firstPlotText);
+            return new MovieInfoDto(director, actorNames.toString(), rating, firstPosterUrl, modifiedVodUrl, runtime, firstPlotText);
         }
         return null;
     }
