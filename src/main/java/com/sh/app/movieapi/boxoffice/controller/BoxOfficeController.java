@@ -15,7 +15,7 @@ public class BoxOfficeController {
     @Autowired
     private BoxOfficeService boxOfficeService;
 
-    @CrossOrigin(origins = {"https://www.youtube.com", "https://www.kmdb.or.kr"})
+    @CrossOrigin(origins = "https://www.youtube.com")
     @GetMapping("/")
     public String showIndex(Model model) {
         List<BoxOffice> boxOfficeList = boxOfficeService.findAll();

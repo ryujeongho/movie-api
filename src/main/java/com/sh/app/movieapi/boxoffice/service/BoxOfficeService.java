@@ -194,7 +194,7 @@ public class BoxOfficeService {
             JSONObject id = firstItem.getJSONObject("id");
             String videoId = id.getString("videoId");
             log.debug("videoId = {}", videoId);
-            return "https://www.youtube.com/watch?v=" + videoId;
+            return "https://www.youtube.com/embed/" + videoId;
         } else {
             return "No results found";
         }
