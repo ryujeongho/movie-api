@@ -37,7 +37,12 @@ public class Movie {
 
     private String release_date;
 
+    @Column(length = 2000)
+    private String overview;
+
     private String title;
+
+    private String status;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(

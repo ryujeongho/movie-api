@@ -33,6 +33,9 @@ dependencies {
 	implementation 'org.json:json:20231013'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310' // 사용 중인 Jackson 버전에 맞게 조정
 	implementation 'org.springframework.boot:spring-boot-starter-json'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+
 
 	implementation 'org.modelmapper:modelmapper:3.2.0'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'

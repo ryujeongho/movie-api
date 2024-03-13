@@ -2,6 +2,7 @@ package com.sh.app.movieapi.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.app.movieapi.entity.Movie;
+import com.sh.app.movieapi.entity.MovieDetailsResponse;
 import com.sh.app.movieapi.entity.MovieResponse;
 import com.sh.app.movieapi.genre.entity.Genre;
 import com.sh.app.movieapi.genre.repository.GenreRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.sh.app.movieapi.repository.MovieRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
@@ -40,23 +42,52 @@ public class MovieService {
         }
     }
 
-    @Value("${api_tmdb_key}")
-    private String tmdbApiKey;
+    private RestTemplate restTemplate = new RestTemplate();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
+    @Value("${api_tmdb_key}")
+    private String tmdbApiKey; // TMDb API 키는 application.properties에서 가져옵니다.
+
+    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
+    private static final String DETAIL_URL = "https://api.themoviedb.org/3/movie/%d?language=en-US&api_key=%s";
 
     public List<Movie> fetchMovies() {
         List<Movie> allMovies = new ArrayList<>();
         for (int page = 1; page <= 4; page++) {
-            String url = String.format("%s?api_key=%s&include_adult=false&include_video=true&language=ko-KR&page=%d&region=KR&sort_by=popularity.desc", BASE_URL, tmdbApiKey, page);
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder
+                    .fromHttpUrl(BASE_URL)
+                    .queryParam("api_key", tmdbApiKey)
+                    .queryParam("language", "ko-KR")
+                    .queryParam("page", page)
+                    .queryParam("region", "KR");
+            String url = uriBuilder.toUriString();
+
             String response = restTemplate.getForObject(url, String.class);
             try {
+                // API 응답을 MovieResponse DTO로 변환합니다.
                 MovieResponse movieResponse = objectMapper.readValue(response, MovieResponse.class);
                 allMovies.addAll(movieResponse.getResults());
+
+                // 이제 각 영화의 상세 정보를 가져와서 저장합니다.
+                for (Movie movie : movieResponse.getResults()) {
+                    String movieDetailsUrl = String.format(DETAIL_URL, movie.getId(), tmdbApiKey);
+                    String movieDetailsResponse = restTemplate.getForObject(movieDetailsUrl, String.class);
+
+                    // API 응답을 MovieDetailsResponse DTO로 변환합니다.
+                    MovieDetailsResponse movieDetails = objectMapper.readValue(movieDetailsResponse, MovieDetailsResponse.class);
+
+                    // 영화 상세 정보를 Movie 엔티티에 추가합니다.
+                    movie.setTitle(movieDetails.getTitle());
+                    movie.setOverview(movieDetails.getOverview());
+                    movie.setRelease_date(movieDetails.getReleaseDate());
+                    movie.setStatus(movieDetails.getStatus());
+                    // 다른 필요한 정보도 이와 같은 방식으로 설정합니다.
+
+                    // 변경된 Movie 객체를 저장소에 저장합니다.
+                    // movieRepository.save(movie); // 적절한 JPA 리포지토리를 사용하세요.
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // 예외 처리는 로그로 남기거나 적절하게 처리합니다.
             }
         }
         return allMovies;
