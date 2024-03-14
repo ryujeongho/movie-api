@@ -2,13 +2,12 @@ package com.sh.app.movieapi;
 
 import com.sh.app.movieapi.boxoffice.service.BoxOfficeService;
 import com.sh.app.movieapi.genre.service.GenreService;
-import com.sh.app.movieapi.service.MovieService;
+import com.sh.app.movieapi.movie.service.MovieService;
 import com.sh.app.movieapi.service.TmdbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 //@EnableScheduling
@@ -35,7 +34,9 @@ public class MovieApiApplication implements CommandLineRunner {
 //		movieService.saveMoviesToDatabase(); // 데이터베이스에 영화 데이터 저장
 //		genreService.fetchAndSaveGenres();
 //		boxOfficeService.fetchAndStoreBoxOfficeData();
-		tmdbService.fetchAndStoreMovieData();
+//		tmdbService.fetchAndStoreMovieData();
+//		tmdbService.fetchAndStoreMovieData();
+		movieService.fetchAndStoreMovieData();
 	}
 
 }

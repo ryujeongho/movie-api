@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 
 public class WebClientExample {
     private static final String BASE_URL = "https://api.themoviedb.org/3";
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZGRiODJhNzc3YTFlZDg2ZTQwMDAwNGQ5MTE5Y2RmMyIsInN1YiI6IjY1YjIxZjA1YjFmNjhkMDE2M2Q1MDE3NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fE_pOnaSzgXhPlLNF2H_4H5YiNFUZnEZRZ577dWIFgc";
+    private static final String TOKEN = "";
 
     public static void main(String[] args) {
         WebClient webClient = WebClient.builder()

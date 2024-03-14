@@ -57,7 +57,6 @@ public class TmdbService {
     public void fetchAndStoreMovieData() {
         fetchAndStoreGenres();
         fetchAndStoreMovies();
-
     }
 
     private void fetchAndStoreGenres() {
